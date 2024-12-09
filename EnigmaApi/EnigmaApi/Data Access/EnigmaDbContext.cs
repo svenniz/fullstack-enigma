@@ -14,10 +14,12 @@ namespace EnigmaApi.Data_Access
             base.OnModelCreating(modelBuilder);
             if (Database.IsInMemory())
             {
+                Console.WriteLine("Seeding Test Data now:");
                 SeedaData.SeedTestData(modelBuilder);
             }
             else if (Database.IsSqlite())
             {
+                Console.WriteLine("Seeding Real Data now:");
                 SeedaData.SeedRealData(modelBuilder);
             }
         }

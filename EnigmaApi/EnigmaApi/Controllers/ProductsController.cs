@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EnigmaApi.Repositories;
+using EnigmaApi.Dtos;
 
 namespace EnigmaApi.Controllers
 {
@@ -16,10 +17,12 @@ namespace EnigmaApi.Controllers
             _repository = repository;
         }
 
+        // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsAsync()
         {
             var products = await _repository.GetAll();
+            Console.WriteLine($"Number of products found: {products.Count()}");
             return Ok(products);
         }
     }

@@ -22,6 +22,7 @@ namespace EnigmaApi.Data_Access
                     Secret = "little secret"
                 }
             });
+            Console.WriteLine("Test Seed data has been added.");
         }
         public static void SeedRealData(ModelBuilder builder)
         {
@@ -40,6 +41,7 @@ namespace EnigmaApi.Data_Access
                     Secret = "little secret"
                 }
             });
+            Console.WriteLine("Real Seed data has been added.");
         }
     }
 }
