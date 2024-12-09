@@ -19,9 +19,13 @@ namespace EnigmaApi.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
             var products = await _repository.GetAll();
+            if (!products.Any())
+            {
+                return NotFound();
+            }
             Console.WriteLine($"Number of products found: {products.Count()}");
             return Ok(products);
         }
