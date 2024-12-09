@@ -7,7 +7,7 @@ namespace EnigmaApi.Data_Access
     {
         public static void SeedTestData(ModelBuilder builder)
         {
-            builder.Entity<EnigmaDbContext>().HasData(new List<Product>
+            builder.Entity<Product>().HasData(new List<Product>
             {
                 new Product {
                     Id = 1,
@@ -25,7 +25,7 @@ namespace EnigmaApi.Data_Access
         }
         public static void SeedRealData(ModelBuilder builder)
         {
-            builder.Entity<EnigmaDbContext>().HasData(new List<Product>
+            builder.Entity<Product>().HasData(new List<Product>
             {
                 new Product {
                     Id = 1,
