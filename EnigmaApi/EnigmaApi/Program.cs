@@ -24,12 +24,12 @@ builder.Services.AddDbContext<EnigmaDbContext>
     (options=>options.UseInMemoryDatabase("EnigmaInMemory"));
 
 // Injeting Sqlite Database
-var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SqliteDbs");
-Directory.CreateDirectory(folder);
-var path = Path.Combine(folder, "");
+//var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SqliteDbs");
+//Directory.CreateDirectory(folder);
+//var path = Path.Combine(folder, "");
 
-builder.Services.AddDbContext<EnigmaDbContext>
-    (options => options.UseSqlite($"Data Source = {path}"));
+//builder.Services.AddDbContext<EnigmaDbContext>
+//    (options => options.UseSqlite($"Data Source = {path}"));
 
 
 var app = builder.Build();
