@@ -38,6 +38,7 @@ namespace EnigmaApi.Data_Access
                     Price = 200
                 });
 
+                // Using try catch for seeding real database
                 try
                 {
                     // Code that triggers the update

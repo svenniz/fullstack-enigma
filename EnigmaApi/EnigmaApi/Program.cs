@@ -16,16 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Injecting Services and Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericEfCoreRepository<>));
-
-
-
 
 builder.Services.AddDbContext<EnigmaDbContext>(options =>
 {
@@ -46,24 +42,6 @@ builder.Services.AddDbContext<EnigmaDbContext>(options =>
         //Console.WriteLine("Database is Sqlite.");
     }
 });
-//// Injecting IN-MEMORY Database
-//builder.Services.AddDbContext<EnigmaDbContext>
-//    (options => options.UseInMemoryDatabase("InMemoryDb"));
-
-// Injeting Sqlite Database
-//var folder = Path.Combine(Environment.
-//GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SqliteDbs");
-//Directory.CreateDirectory(folder);
-//var path = Path.Combine(folder, "enigma-db.db");
-
-//builder.Services.AddDbContext<EnigmaDbContext>
-//    (options => options.UseSqlite($"Data Source = {path}"));
-
-// Injeting MySql Database
-//builder.Services.AddDbContext<EnigmaDbContext>
-//    (options => options.UseMySql(builder.Configuration.
-//    GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 36))));
-
 
 var app = builder.Build();
 
