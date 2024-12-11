@@ -74,7 +74,12 @@ using (var scope = app.Services.CreateScope())
         // Do not call EnsureCreated for databases that use migrations.
         // EnsureCreated() will try to actually also create a schema
         Console.WriteLine("Seeding Real Data now:");
-        SeedData.SeedRealData(context);
+        if (!context.Products.Any())
+        {
+            SeedData.SeedRealData(context);
+        }
+        // Apply migrations for SQLite/MySQL databases
+        Console.WriteLine("Applying Database Migrations...");
         context.Database.Migrate();
         Console.WriteLine("Database migrations are required for this database provider.");
     }

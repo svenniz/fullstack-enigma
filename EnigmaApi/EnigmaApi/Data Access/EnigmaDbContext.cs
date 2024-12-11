@@ -1,5 +1,6 @@
 ﻿using EnigmaApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EnigmaApi.Data_Access
 {
@@ -12,6 +13,12 @@ namespace EnigmaApi.Data_Access
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>()
+                .HasKey(p => p.Id);
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }
