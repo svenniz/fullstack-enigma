@@ -12,17 +12,6 @@ namespace EnigmaApi.Data_Access
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            if (Database.IsInMemory())
-            {
-                Console.WriteLine($"Using In-Memory Db, the Database Provider: {Database.ProviderName}");
-                Console.WriteLine("Seeding Test Data now:");
-                SeedData.SeedTestData(modelBuilder);
-            }
-            else if (Database.IsSqlite())
-            {
-                Console.WriteLine("Seeding Real Data now:");
-                SeedData.SeedRealData(modelBuilder);
-            }
         }
     }
 }
