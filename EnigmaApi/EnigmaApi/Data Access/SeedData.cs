@@ -8,10 +8,10 @@ namespace EnigmaApi.Data_Access
         public static void SeedTestData(EnigmaDbContext context)
         {
             // Insert test data for InMemory Db
-            var products = new List<Product>
+            var products = new List<Card>
             {
-                new Product { Name = "Test Product 1", Price = 10 },
-                new Product { Name = "Test Product 2", Price = 20 },
+                new Card { Name = "Test Product 1", Price = 10 },
+                new Card { Name = "Test Product 2", Price = 20 },
             };
             context.Products.AddRange(products);
             context.SaveChanges();
@@ -22,10 +22,10 @@ namespace EnigmaApi.Data_Access
         public static void SeedRealData(EnigmaDbContext context)
         {
             // Insert real data for SQLite/MySql Db
-            var products = new List<Product>
+            var products = new List<Card>
             {
-                new Product { Name = "Product 1", Price = 100 },
-                new Product { Name = "Product 2", Price = 200 },
+                new Card { Name = "Product 1", Price = 100 },
+                new Card { Name = "Product 2", Price = 200 },
             };
             context.Products.AddRange(products);
             context.SaveChanges();

@@ -8,7 +8,7 @@ namespace EnigmaApi.Services
     {
         public MappingProfile() 
         {
-            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Card, CardDto>().ReverseMap();
         }
     }
 }

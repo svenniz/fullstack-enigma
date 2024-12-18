@@ -8,17 +8,27 @@ namespace EnigmaApi.Data_Access
     {
         public EnigmaDbContext(DbContextOptions<EnigmaDbContext> options): base(options) { }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Deck> Decks { get; set; }
+        public DbSet<DeckCard> DeckCards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>()
-                .HasKey(p => p.Id);
-            modelBuilder.Entity<Product>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<DeckCard>()
+            .HasKey(dc => new { dc.DeckId, dc.CardId }); // Composite primary key
+
+            modelBuilder.Entity<DeckCard>()
+                .HasOne(dc => dc.Deck)
+                .WithMany(d => d.DeckCards)
+                .HasForeignKey(dc => dc.DeckId);
+
+            modelBuilder.Entity<DeckCard>()
+                .HasOne(dc => dc.Card)
+                .WithMany(c => c.DeckCards)
+                .HasForeignKey(dc => dc.CardId);
+
         }
     }
 }
