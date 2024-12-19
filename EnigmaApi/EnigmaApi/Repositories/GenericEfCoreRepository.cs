@@ -65,7 +65,7 @@ namespace EnigmaApi.Repositories
 
         public void Update(T entity)
         {
-            // No code
+            _dbSet.Update(entity);
         }
     }
 }
