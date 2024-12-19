@@ -93,9 +93,7 @@ namespace EnigmaApi.Controllers
                     return NotFound($"Cant find Card: {cardRequest.Name} from Set: {cardRequest.Set}");
                 }
 
-                var cardDto = _mapper.Map<CardDto>(card);
-
-                return Ok(cardDto);
+                return Ok(card);
             }
             catch (Exception ex)
             {
