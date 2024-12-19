@@ -11,6 +11,7 @@ namespace EnigmaApi.Data_Access
         public DbSet<Card> Cards { get; set; }
         public DbSet<Deck> Decks { get; set; }
         public DbSet<DeckCard> DeckCards { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,13 +23,20 @@ namespace EnigmaApi.Data_Access
             modelBuilder.Entity<DeckCard>()
                 .HasOne(dc => dc.Deck)
                 .WithMany(d => d.DeckCards)
-                .HasForeignKey(dc => dc.DeckId);
+                .HasForeignKey(dc => dc.DeckId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<DeckCard>()
                 .HasOne(dc => dc.Card)
                 .WithMany(c => c.DeckCards)
-                .HasForeignKey(dc => dc.CardId);
+                .HasForeignKey(dc => dc.CardId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Image>()
+                .HasOne(i => i.Card)
+                .WithMany(c => c.Images)
+                .HasForeignKey(i => i.CardId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
