@@ -4,13 +4,13 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string ManaCost { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
+        public string? ManaCost { get; set; } = string.Empty;
+        public string? Type { get; set; } = string.Empty;
         public string? SetCode { get; set; }
-        public string Rarity { get; set; } = string.Empty;
+        public string? Rarity { get; set; } = string.Empty;
         public int? Power { get; set; }
         public int? Toughness { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
         public string? ImageUrl { get; set; }
 
         public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>();

@@ -11,6 +11,9 @@ var isInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDataba
 
 // Add services to the container.
 
+// Register HttpClient
+builder.Services.AddHttpClient<ICardService, CardService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +25,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Injecting Services and Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericEfCoreRepository<>));
+builder.Services.AddScoped<ICardService, CardService>();
 
 builder.Services.AddDbContext<EnigmaDbContext>(options =>
 {
@@ -64,7 +68,7 @@ using (var scope = app.Services.CreateScope())
     if (isInMemoryDatabase)
     {
         Console.WriteLine("Seeding Test Data now:");
-        SeedData.SeedTestData(context);
+        SeedData.SeedRealData(context);
         context.Database.EnsureCreated(); // Ensure the database is created
         Console.WriteLine("In-Memory Database created and seeded.");
     }
@@ -74,7 +78,7 @@ using (var scope = app.Services.CreateScope())
         // Do not call EnsureCreated for databases that use migrations.
         // EnsureCreated() will try to actually also create a schema
         Console.WriteLine("Seeding Real Data now:");
-        if (!context.Products.Any())
+        if (!context.Cards.Any())
         {
             SeedData.SeedRealData(context);
         }
