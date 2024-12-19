@@ -2,7 +2,7 @@
 
 namespace EnigmaApi.Services
 {
-    public interface ICardService
+    public interface IScryfallCardService
     {
         Task<Card> GetCardDetailsFromScryfall(string cardName, string set = null);
     }

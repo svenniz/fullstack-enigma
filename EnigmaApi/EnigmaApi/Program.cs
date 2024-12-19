@@ -12,7 +12,7 @@ var isInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDataba
 // Add services to the container.
 
 // Register HttpClient
-builder.Services.AddHttpClient<ICardService, CardService>();
+builder.Services.AddHttpClient<IScryfallCardService, ScryfallCardService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,7 +26,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Injecting Services and Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericEfCoreRepository<>));
-builder.Services.AddScoped<ICardService, CardService>();
+builder.Services.AddScoped<IScryfallCardService, ScryfallCardService>();
 
 builder.Services.AddDbContext<EnigmaDbContext>(options =>
 {

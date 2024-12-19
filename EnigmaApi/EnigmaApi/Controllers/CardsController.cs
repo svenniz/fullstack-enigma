@@ -14,9 +14,9 @@ namespace EnigmaApi.Controllers
     {
         private readonly IRepository<Card> _repository;
         private readonly IMapper _mapper;
-        private readonly ICardService _cardService;
+        private readonly IScryfallCardService _cardService;
 
-        public CardsController(IRepository<Card> repository, IMapper mapper, ICardService cardService)
+        public CardsController(IRepository<Card> repository, IMapper mapper, IScryfallCardService cardService)
         {
             _repository = repository;
             _mapper = mapper;
@@ -93,7 +93,9 @@ namespace EnigmaApi.Controllers
                     return NotFound($"Cant find Card: {cardRequest.Name} from Set: {cardRequest.Set}");
                 }
 
-                return Ok(card);
+                var cardDto = _mapper.Map<CardDto>(card);
+
+                return Ok(cardDto);
             }
             catch (Exception ex)
             {

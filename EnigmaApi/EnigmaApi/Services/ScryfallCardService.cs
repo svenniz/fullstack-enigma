@@ -6,11 +6,11 @@
     using EnigmaApi.Models;
     using Newtonsoft.Json;
 
-    public class CardService : ICardService
+    public class ScryfallCardService : IScryfallCardService
     {
         private readonly HttpClient _httpClient;
 
-        public CardService(HttpClient httpClient)
+        public ScryfallCardService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -61,6 +61,7 @@
                     ManaCost = cardData.ManaCost,
                     Type = cardData.TypeLine,
                     SetCode = cardData.Set,
+                    SetName = cardData.SetName,
                     Rarity = cardData.Rarity,
                     Power = cardData.Power ?? null,
                     Toughness = cardData.Toughness ?? null,
@@ -90,6 +91,8 @@
         public string? TypeLine { get; set; }
         [JsonProperty("set")]
         public string? Set { get; set; }
+        [JsonProperty("set_name")]
+        public string? SetName { get; set; }
         [JsonProperty("rarity")]
         public string? Rarity { get; set; }
         [JsonProperty("power")]
