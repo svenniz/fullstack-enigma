@@ -14,19 +14,31 @@
         {
             _httpClient = httpClient;
         }
-
-        public async Task<Card> GetCardDetailsFromScryfall(string cardName)
+        /// <summary>
+        /// Uses Scryfall Api to search for card using fuzzy search. 
+        /// Gets JSON object that maps to ScryfallCard object, that is then mapped to Card Entity
+        /// </summary>
+        /// <param name="cardName">fuzzy card name</param>
+        /// <param name="set">nullable set. Default is set by scryfall</param>
+        /// <returns>Card entity model for database</returns>
+        public async Task<Card> GetCardDetailsFromScryfall(string cardName, string set = null)
         {
             try
             {
-                // Setting headers for request:
+                // Setting headers for request
                 _httpClient.DefaultRequestHeaders.Clear();
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "EnigmaApi/1.0");
                 _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                // Send Request to Scryfall
-                var url = $"https://api.scryfall.com/cards/named?fuzzy={Uri.EscapeDataString(cardName)}";
+                // Setup url
+                var baseUrl = "https://api.scryfall.com/cards/named";
+                var url = $"{baseUrl}?fuzzy={Uri.EscapeDataString(cardName)}";
                 Console.WriteLine($"Fetching card from {url}");
+                if(!string.IsNullOrEmpty(set))
+                {
+                    url += $"&set={set}";
+                }
+
                 var response = await _httpClient.GetAsync(url);
                 Console.WriteLine($"Response Status Code: {response.StatusCode}");
 
@@ -50,8 +62,8 @@
                     Type = cardData.TypeLine,
                     SetCode = cardData.Set,
                     Rarity = cardData.Rarity,
-                    Power = cardData.Power,
-                    Toughness = cardData.Toughness,
+                    Power = cardData.Power ?? null,
+                    Toughness = cardData.Toughness ?? null,
                     Description = cardData.OracleText,
                     Images = cardData.ImageUris != null && !string.IsNullOrWhiteSpace(cardData.ImageUris.Normal)
                     ? new List<Image> { new Image { Url=cardData.ImageUris.Normal } }
@@ -71,7 +83,7 @@
     public class ScryfallCard
     {
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [JsonProperty("mana_cost")]
         public string? ManaCost { get; set; }
         [JsonProperty("type_line")]

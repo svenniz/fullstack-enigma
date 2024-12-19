@@ -39,7 +39,7 @@ namespace EnigmaApi.Controllers
 
         // GET: api/<CardsController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CardDto>> GetCardAsync(int id)
+        public async Task<ActionResult<CardDto>> GetCardByIdAsync(int id)
         {
             var card = await _repository.Get(id);
             if (card == null)
@@ -51,19 +51,19 @@ namespace EnigmaApi.Controllers
         }
 
         // POST: api/<CardsController>
-        //[HttpPost("manual")]
-        //public async Task<ActionResult<CardDto>> CreateCardAsync(CardDto cardDto)
-        //{
-        //    var card = _mapper.Map<Card>(cardDto);
+        [HttpPost("manual")]
+        public async Task<ActionResult<CardDto>> CreateCardAsync(CardDto cardDto)
+        {
+            var card = _mapper.Map<Card>(cardDto);
 
-        //    // Adding card and saving
-        //    _repository.Add(card);
-        //    await _repository.SaveChanges();
+            // Adding card and saving
+            _repository.Add(card);
+            await _repository.SaveChanges();
 
-        //    var createdCardDto = _mapper.Map<CardDto>(card);
+            var createdCardDto = _mapper.Map<CardDto>(card);
 
-        //    return CreatedAtAction(nameof(GetCardAsync), new { id = createdCardDto.Id }, createdCardDto);
-        //}
+            return CreatedAtAction(nameof(GetCardByIdAsync), new { id = createdCardDto.Id }, createdCardDto);
+        }
 
         // DELETE: api/<CardsController>/5
         [HttpDelete("{id}")]
@@ -81,29 +81,29 @@ namespace EnigmaApi.Controllers
         }
 
         // GET: api/<CardsController>/scryfall/name
-        //[HttpGet("scryfall/{cardName}")]
-        //public async Task<IActionResult> GetCardByName(string cardName)
-        //{
-        //    try
-        //    {
-        //        var card = await _cardService.GetCardDetailsFromScryfall(cardName);
+        [HttpGet("scryfall/{cardName}")]
+        public async Task<IActionResult> GetCardByNameFromScryfall(string cardName)
+        {
+            try
+            {
+                var card = await _cardService.GetCardDetailsFromScryfall(cardName);
 
-        //        if ((card == null))
-        //        {
-        //            return NotFound($"Cant find Card: {cardName}");
-        //        }
+                if ((card == null))
+                {
+                    return NotFound($"Cant find Card: {cardName}");
+                }
 
-        //        return Ok(card);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error fetching card: {ex.Message}");
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
+                return Ok(card);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching card: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // POST: api/<CardsController>/scryfall
-        [HttpPost]
+        [HttpPost("scryfall")]
         public async Task<ActionResult<CardDto>> CreateCardFromScryfall([FromBody] CardRequest cardRequest)
         {
             try
@@ -113,7 +113,7 @@ namespace EnigmaApi.Controllers
                     return BadRequest("Card name is required");
                 }
 
-                var card = await _cardService.GetCardDetailsFromScryfall(cardRequest.Name);
+                var card = await _cardService.GetCardDetailsFromScryfall(cardRequest.Name, cardRequest.Set);
                 if (card == null)
                 {
                     return NotFound($"Card with name: {cardRequest.Name} not found");
@@ -128,7 +128,7 @@ namespace EnigmaApi.Controllers
                 string url = $"api/Cards/{createdCardDto.Id}";
                 Console.WriteLine($"Created card URL: {url}");
                 return Created(url, createdCardDto);
-                //return CreatedAtAction(nameof(GetCardAsync), new { id = createdCardDto.Id }, createdCardDto);
+                //return CreatedAtAction(nameof(GetCardByIdAsync), new { id = createdCardDto.Id }, createdCardDto);
             }
             catch (Exception ex)
             {
