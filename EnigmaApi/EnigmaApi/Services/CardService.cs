@@ -45,18 +45,17 @@
                 // Map Scryfall Card to Card Model
                 var card = new Card
                 {
-                    Name = cardData.Name,
+                    Name = cardData.Name ?? "Unknown Name",
                     ManaCost = cardData.ManaCost,
-                    Type = cardData.Type,
+                    Type = cardData.TypeLine,
                     SetCode = cardData.Set,
                     Rarity = cardData.Rarity,
                     Power = cardData.Power,
                     Toughness = cardData.Toughness,
-                    Description = cardData.Description,
-                    Images = new List<Image>
-                    {
-                        new Image {Url=cardData.ImageUris?.Normal}
-                    }.Where(i => !string.IsNullOrWhiteSpace(i.Url)).ToList()
+                    Description = cardData.OracleText,
+                    Images = cardData.ImageUris != null && !string.IsNullOrWhiteSpace(cardData.ImageUris.Normal)
+                    ? new List<Image> { new Image { Url=cardData.ImageUris.Normal } }
+                    : new List<Image>()
                 };
 
                 return card;
@@ -71,14 +70,23 @@
     }
     public class ScryfallCard
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("mana_cost")]
         public string? ManaCost { get; set; }
-        public string? Type { get; set; }
+        [JsonProperty("type_line")]
+        public string? TypeLine { get; set; }
+        [JsonProperty("set")]
         public string? Set { get; set; }
+        [JsonProperty("rarity")]
         public string? Rarity { get; set; }
+        [JsonProperty("power")]
         public int? Power { get; set; }
+        [JsonProperty("toughness")]
         public int? Toughness { get; set; }
-        public string? Description { get; set; }
+        [JsonProperty("oracle_text")]
+        public string? OracleText { get; set; }
+        [JsonProperty("image_uris")]
         public ImageUris ImageUris { get; set; }
     }
     public class ImageUris

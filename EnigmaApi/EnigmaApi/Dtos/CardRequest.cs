@@ -2,6 +2,6 @@
 {
     public class CardRequest
     {
-        public string CardName { get; set; }
+        public string Name { get; set; }
     }
 }
