@@ -81,16 +81,16 @@ namespace EnigmaApi.Controllers
         }
 
         // GET: api/<CardsController>/scryfall/name
-        [HttpGet("scryfall/{cardName}")]
-        public async Task<IActionResult> GetCardByNameFromScryfall(string cardName)
+        [HttpGet("scryfall/{cardRequest.Name}")]
+        public async Task<IActionResult> GetCardFromScryfall([FromQuery]CardRequest cardRequest)
         {
             try
             {
-                var card = await _cardService.GetCardDetailsFromScryfall(cardName);
+                var card = await _cardService.GetCardDetailsFromScryfall(cardRequest.Name, cardRequest.Set);
 
                 if ((card == null))
                 {
-                    return NotFound($"Cant find Card: {cardName}");
+                    return NotFound($"Cant find Card: {cardRequest.Name} from Set: {cardRequest.Set}");
                 }
 
                 return Ok(card);
