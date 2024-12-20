@@ -11,5 +11,4 @@
         // Navigation property
         public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>();
     }
-
 }

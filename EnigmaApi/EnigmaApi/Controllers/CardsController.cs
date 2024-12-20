@@ -82,7 +82,7 @@ namespace EnigmaApi.Controllers
         }
 
         // GET: api/<CardsController>/scryfall/name
-        [HttpGet("scryfall/{cardRequest.Name}")]
+        [HttpGet("scryfall/name")]
         public async Task<IActionResult> GetCardFromScryfall([FromQuery]CardRequest cardRequest)
         {
             try

@@ -24,6 +24,7 @@ namespace EnigmaApi.Services
                     CardId = cardDto.Id,
                 })));
 
+            // Map from Image to ImageDto and back
             CreateMap<Image, ImageDto>().ReverseMap();
         }
     }

@@ -21,7 +21,7 @@
         /// <param name="cardName">fuzzy card name</param>
         /// <param name="set">nullable set. Default is set by scryfall</param>
         /// <returns>Card entity model for database</returns>
-        public async Task<Card> GetCardDetailsFromScryfall(string cardName, string set = null)
+        public async Task<Card> GetCardDetailsFromScryfall(string cardName, string? set = null)
         {
             try
             {
@@ -34,6 +34,7 @@
                 var baseUrl = "https://api.scryfall.com/cards/named";
                 var url = $"{baseUrl}?fuzzy={Uri.EscapeDataString(cardName)}";
                 Console.WriteLine($"Fetching card from {url}");
+
                 if(!string.IsNullOrEmpty(set))
                 {
                     url += $"&set={set}";
@@ -55,22 +56,7 @@
                 var cardData = JsonConvert.DeserializeObject<ScryfallCard>(json);
 
                 // Map Scryfall Card to Card Model
-                var card = new Card
-                {
-                    Name = cardData.Name ?? "Unknown Name",
-                    ManaCost = cardData.ManaCost,
-                    Type = cardData.TypeLine,
-                    SetCode = cardData.Set,
-                    SetName = cardData.SetName,
-                    Rarity = cardData.Rarity,
-                    Power = cardData.Power ?? null,
-                    Toughness = cardData.Toughness ?? null,
-                    Description = cardData.OracleText,
-                    Images = cardData.ImageUris != null && !string.IsNullOrWhiteSpace(cardData.ImageUris.Normal)
-                    ? new List<Image> { new Image { Url=cardData.ImageUris.Normal } }
-                    : new List<Image>()
-                };
-                
+                var card = MapToCard(cardData);
 
                 return card;
             }
@@ -79,9 +65,44 @@
                 Console.WriteLine($"error while fetching card from scryfall: {ex.Message}");
                 throw;
             }
-
+        }
+        /// <summary>
+        /// Abstracting the mapping logic to seperate function
+        /// </summary>
+        /// <param name="cardData"></param>
+        /// <returns></returns>
+        private Card MapToCard(ScryfallCard cardData)
+        {
+            return new Card
+            {
+                Name = cardData.Name ?? "Unknown Name",
+                ManaCost = cardData.ManaCost,
+                Type = cardData.TypeLine,
+                SetCode = cardData.Set,
+                SetName = cardData.SetName,
+                Rarity = cardData.Rarity,
+                Power = cardData.Power,
+                Toughness = cardData.Toughness,
+                Description = cardData.OracleText,
+                Images = MapToImages(cardData.ImageUris)
+            };
+        }
+        /// <summary>
+        /// Seperate image mapping for card
+        /// </summary>
+        /// <param name="imageUris"></param>
+        /// <returns></returns>
+        private List<Image> MapToImages(ImageUris imageUris)
+        {
+            return imageUris != null && !string.IsNullOrWhiteSpace(imageUris.Normal)
+                ? new List<Image> { new Image { Url = imageUris.Normal } }
+                : new List<Image>();
         }
     }
+
+    /// <summary>
+    /// Dto-like object for using Scryfall Api JsonProperties and mapping them to object structure
+    /// </summary>
     public class ScryfallCard
     {
         [JsonProperty("name")]
@@ -103,10 +124,10 @@
         [JsonProperty("oracle_text")]
         public string? OracleText { get; set; }
         [JsonProperty("image_uris")]
-        public ImageUris ImageUris { get; set; }
+        public ImageUris? ImageUris { get; set; }
     }
     public class ImageUris
     {
-        public string Normal { get; set; }
+        public string? Normal { get; set; }
     }
 }

@@ -12,10 +12,9 @@
         public int? Power { get; set; }
         public int? Toughness { get; set; }
         public string? Description { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; }
 
+        // Navigational Properties
         public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>();
-        public ICollection<Image> Images { get; set; }
+        public ICollection<Image>? Images { get; set; }
     }
-
 }

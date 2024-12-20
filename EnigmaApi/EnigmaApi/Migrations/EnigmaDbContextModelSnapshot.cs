@@ -33,9 +33,6 @@ namespace EnigmaApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("ManaCost")
                         .HasColumnType("longtext");
 
@@ -125,7 +122,6 @@ namespace EnigmaApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
