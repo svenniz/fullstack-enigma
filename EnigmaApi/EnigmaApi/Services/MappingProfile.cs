@@ -23,6 +23,8 @@ namespace EnigmaApi.Services
                 {
                     CardId = cardDto.Id,
                 })));
+
+            CreateMap<Image, ImageDto>().ReverseMap();
         }
     }
 }

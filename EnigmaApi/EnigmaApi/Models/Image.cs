@@ -7,7 +7,5 @@
         public string? AltText { get; set; }  // Optional alt text for accessibility
         public int CardId { get; set; }  // Foreign Key to Card
         public Card Card { get; set; } // Navigational Property
-
     }
-
 }

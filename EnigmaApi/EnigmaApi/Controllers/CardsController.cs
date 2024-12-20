@@ -12,11 +12,11 @@ namespace EnigmaApi.Controllers
     [ApiController]
     public class CardsController : ControllerBase
     {
-        private readonly IRepository<Card> _repository;
+        private readonly ICardRepository _repository;
         private readonly IMapper _mapper;
         private readonly IScryfallCardService _cardService;
 
-        public CardsController(IRepository<Card> repository, IMapper mapper, IScryfallCardService cardService)
+        public CardsController(ICardRepository repository, IMapper mapper, IScryfallCardService cardService)
         {
             _repository = repository;
             _mapper = mapper;
@@ -27,11 +27,12 @@ namespace EnigmaApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CardDto>>> GetCardsAsync()
         {
-            var cards = await _repository.GetAll();
+            var cards = await _repository.GetAllCardsAsync();
             if (!cards.Any())
             {
                 return NotFound();
             }
+
             Console.WriteLine($"Number of Cards found: {cards.Count()}");
             var cardDtos = _mapper.Map<IEnumerable<CardDto>>(cards);
             return Ok(cardDtos);
@@ -41,7 +42,7 @@ namespace EnigmaApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CardDto>> GetCardByIdAsync(int id)
         {
-            var card = await _repository.Get(id);
+            var card = await _repository.GetCardAsync(id);
             if (card == null)
             {
                 return NotFound($"Card with ID {id} not found.");

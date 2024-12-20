@@ -26,6 +26,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Injecting Services and Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericEfCoreRepository<>));
+builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<IScryfallCardService, ScryfallCardService>();
 
 builder.Services.AddDbContext<EnigmaDbContext>(options =>

@@ -70,6 +70,7 @@
                     ? new List<Image> { new Image { Url=cardData.ImageUris.Normal } }
                     : new List<Image>()
                 };
+                
 
                 return card;
             }
