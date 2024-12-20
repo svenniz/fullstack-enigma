@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnigmaApi.Migrations
 {
     [DbContext(typeof(EnigmaDbContext))]
-    [Migration("20241220113906_InitialCreate")]
+    [Migration("20241220121321_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,7 +33,16 @@ namespace EnigmaApi.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ArtistName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Cmc")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Language")
                         .HasColumnType("longtext");
 
                     b.Property<string>("ManaCost")
@@ -47,6 +56,9 @@ namespace EnigmaApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Rarity")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ReleasedAt")
                         .HasColumnType("longtext");
 
                     b.Property<string>("SetCode")

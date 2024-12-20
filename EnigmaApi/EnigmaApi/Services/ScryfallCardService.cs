@@ -78,12 +78,16 @@
                 Name = cardData.Name ?? "Unknown Name",
                 ManaCost = cardData.ManaCost,
                 Type = cardData.TypeLine,
-                SetCode = cardData.Set,
-                SetName = cardData.SetName,
-                Rarity = cardData.Rarity,
                 Power = cardData.Power,
                 Toughness = cardData.Toughness,
+                Cmc = cardData.Cmc,
                 Description = cardData.OracleText,
+                SetCode = cardData.Set,
+                SetName = cardData.SetName,
+                Language = cardData.Language,
+                Rarity = cardData.Rarity,
+                ArtistName = cardData.ArtistName,
+                ReleasedAt = cardData.ReleasedAt,
                 Images = MapToImages(cardData.ImageUris)
             };
         }
@@ -111,18 +115,26 @@
         public string? ManaCost { get; set; }
         [JsonProperty("type_line")]
         public string? TypeLine { get; set; }
-        [JsonProperty("set")]
-        public string? Set { get; set; }
-        [JsonProperty("set_name")]
-        public string? SetName { get; set; }
-        [JsonProperty("rarity")]
-        public string? Rarity { get; set; }
         [JsonProperty("power")]
         public int? Power { get; set; }
         [JsonProperty("toughness")]
         public int? Toughness { get; set; }
         [JsonProperty("oracle_text")]
         public string? OracleText { get; set; }
+        [JsonProperty("cmc")]
+        public string? Cmc {  get; set; }
+        [JsonProperty("set")]
+        public string? Set { get; set; }
+        [JsonProperty("set_name")]
+        public string? SetName { get; set; }
+        [JsonProperty("lang")]
+        public string? Language { get; set; }
+        [JsonProperty("rarity")]
+        public string? Rarity { get; set; }
+        [JsonProperty("artist")]
+        public string? ArtistName { get; set; }
+        [JsonProperty("released_at")]
+        public string? ReleasedAt { get; set; }
         [JsonProperty("image_uris")]
         public ImageUris? ImageUris { get; set; }
     }
