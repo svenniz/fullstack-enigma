@@ -2,7 +2,6 @@
 
 namespace EnigmaApi.Services
 {
-
     public class CardFileService : ICardFileService
     {
         private readonly IScryfallCardService _scryfallCardService;  // Service for fetching cards from Scryfall
@@ -37,9 +36,7 @@ namespace EnigmaApi.Services
                     cardNames.Add(cardName);
                 }
             }
-
             return cardNames;
         }
     }
-
 }
