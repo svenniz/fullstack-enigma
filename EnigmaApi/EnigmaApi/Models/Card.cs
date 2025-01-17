@@ -23,6 +23,8 @@
 
         // Navigational Properties
         public ICollection<Image>? Images { get; set; }
-        public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>();
+        public ICollection<DeckCard> DeckCards { get; set; } = new List<DeckCard>(); // many to many
+        public int? BoosterId { get; set; } 
+        public Booster? Booster { get; set; } // one to many
     }
 }
