@@ -91,6 +91,22 @@
                 Images = MapToImages(cardData.ImageUris)
             };
         }
+
+        public async Task<List<Card>> GetCardsDetailsFromScryfall(List<string> cardNames, string? set = null)
+        {
+            var cards = new List<Card>();
+
+            foreach (var cardName in cardNames)
+            {
+                var card = await GetCardDetailsFromScryfall(cardName, set);
+                if(card != null)
+                {
+                    cards.Add(card);
+                }
+            }
+            return cards;
+        }
+
         /// <summary>
         /// Seperate image mapping for card
         /// </summary>
