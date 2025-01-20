@@ -12,10 +12,10 @@ namespace EnigmaApi.Controllers
 
     public class DeckController : ControllerBase
     {
-        private readonly IRepository<Deck> _repository;
+        private readonly IDeckRepository _repository;
         private readonly IMapper _mapper;
 
-        public DeckController(IRepository<Deck> repository, IMapper mapper)
+        public DeckController(IDeckRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace EnigmaApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DeckDto>>> GetDecksAsync()
         {
-            var decks = await _repository.GetAll();
+            var decks = await _repository.GetAllDeckDtos();
             if (!decks.Any())
             {
                 return NotFound();
