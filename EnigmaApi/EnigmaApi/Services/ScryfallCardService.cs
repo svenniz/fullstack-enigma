@@ -91,7 +91,12 @@
                 Images = MapToImages(cardData.ImageUris)
             };
         }
-
+        /// <summary>
+        /// Get list of cards from scryfall from by name
+        /// </summary>
+        /// <param name="cardNames"></param>
+        /// <param name="set"></param>
+        /// <returns></returns>
         public async Task<List<Card>> GetCardsDetailsFromScryfall(List<string> cardNames, string? set = null)
         {
             var cards = new List<Card>();
