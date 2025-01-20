@@ -1,4 +1,6 @@
-﻿namespace EnigmaApi.Models
+﻿using EnigmaApi.Boosters.Models;
+
+namespace EnigmaApi.Models
 {
     public class DraftSession
     {

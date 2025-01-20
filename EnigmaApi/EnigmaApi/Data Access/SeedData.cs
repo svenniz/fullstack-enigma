@@ -1,4 +1,7 @@
-﻿using EnigmaApi.Models;
+﻿using EnigmaApi.Cards.Models;
+using EnigmaApi.DeckCards.Models;
+using EnigmaApi.Decks.Models;
+using EnigmaApi.Images.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnigmaApi.Data_Access

@@ -1,4 +1,8 @@
-﻿using EnigmaApi.Models;
+﻿using EnigmaApi.Boosters.Models;
+using EnigmaApi.Cards.Models;
+using EnigmaApi.DeckCards.Models;
+using EnigmaApi.Decks.Models;
+using EnigmaApi.Images.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

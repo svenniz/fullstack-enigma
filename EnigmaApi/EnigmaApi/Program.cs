@@ -1,6 +1,8 @@
+using EnigmaApi.Cards.Repositories;
+using EnigmaApi.Cards.Services;
 using EnigmaApi.Data_Access;
-using EnigmaApi.Repositories;
-using EnigmaApi.Services;
+using EnigmaApi.Decks.Repositories;
+using EnigmaApi.Shared.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
@@ -29,6 +31,8 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericEfCoreRepository
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<IDeckRepository, DeckRepository>();
 builder.Services.AddScoped<IScryfallCardService, ScryfallCardService>();
+builder.Services.AddScoped<ICardFileService, CardFileService>();
+
 
 builder.Services.AddDbContext<EnigmaDbContext>(options =>
 {

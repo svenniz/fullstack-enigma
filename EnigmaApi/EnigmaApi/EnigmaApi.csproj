@@ -25,4 +25,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Boosters\Controller\" />
+    <Folder Include="Boosters\Dtos\" />
+    <Folder Include="Boosters\Repositories\" />
+    <Folder Include="Decks\Services\" />
+  </ItemGroup>
+
 </Project>
