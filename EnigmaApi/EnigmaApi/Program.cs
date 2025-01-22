@@ -76,10 +76,11 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<EnigmaDbContext>();
+    var deckService = scope.ServiceProvider.GetRequiredService<IDeckService>();
     if (isInMemoryDatabase)
     {
         Console.WriteLine("Seeding Test Data now:");
-        SeedData.SeedRealData(context);
+        await SeedData.SeedRealData(context, deckService);
         context.Database.EnsureCreated(); // Ensure the database is created
         Console.WriteLine("In-Memory Database created and seeded.");
     }
@@ -91,7 +92,7 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine("Seeding Real Data now:");
         if (!context.Cards.Any())
         {
-            SeedData.SeedRealData(context);
+            await SeedData.SeedRealData(context, deckService);
         }
         // Apply migrations for SQLite/MySQL databases
         Console.WriteLine("Applying Database Migrations...");

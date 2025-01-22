@@ -1,6 +1,7 @@
 ﻿using EnigmaApi.Cards.Models;
 using EnigmaApi.DeckCards.Models;
 using EnigmaApi.Decks.Models;
+using EnigmaApi.Decks.Services;
 using EnigmaApi.Images.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ namespace EnigmaApi.Data_Access
 {
     public static class SeedData
     {
-        public static void SeedRealData(EnigmaDbContext context)
+        public static async Task SeedRealData(EnigmaDbContext context, IDeckService deckService)
         {
             if (!context.Cards.Any())
             {
@@ -91,19 +92,20 @@ namespace EnigmaApi.Data_Access
                 var deck = new Deck
                 {
                     Name = "Vintage Power",
-                    Description = "A powerful vintage deck with classic cards.",
-                    DeckCards = new List<DeckCard>
-                    {
-                        new DeckCard { Card = cards.First(c => c.Name == "Black Lotus") },
-                        new DeckCard { Card = cards.First(c => c.Name == "Lightning Bolt") },
-                        new DeckCard { Card = cards.First(c => c.Name == "Serra Angel") },
-                        new DeckCard { Card = cards.First(c => c.Name == "Counterspell") }
-                    }
+                    Description = "A powerful vintage deck with classic cards."
                 };
 
-                // Add deck to the context
+                // Add the deck to the context
                 context.Decks.Add(deck);
-                context.SaveChanges();
+                context.SaveChanges(); // Save to generate the deck ID
+
+                // Add cards to the deck using AddCardToDeckAsync
+                await deckService.AddCardToDeckAsync(deck.Id, cards.First(c => c.Name == "Black Lotus").Id); // Add Black Lotus
+                await deckService.AddCardToDeckAsync(deck.Id, cards.First(c => c.Name == "Lightning Bolt").Id); // Add Lightning Bolt
+                await deckService.AddCardToDeckAsync(deck.Id, cards.First(c => c.Name == "Serra Angel").Id); // Add Serra Angel
+                await deckService.AddCardToDeckAsync(deck.Id, cards.First(c => c.Name == "Counterspell").Id); // Add Counterspell
+
+                context.SaveChanges(); // Save the changes to the deck
             }
         }
     }

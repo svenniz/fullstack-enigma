@@ -64,12 +64,28 @@ namespace EnigmaApi.Decks.Controller
             return CreatedAtAction(nameof(GetDeckByIdAsync), new { id = deck.Id }, createdDeckDto);
         }
 
+        // Add card to deck
+        [HttpPost("{deckId}/add-card/{cardId}")]
+        public async Task<IActionResult> AddCardToDeck(int deckId, int cardId)
+        {
+            try
+            {
+                await _deckService.AddCardToDeckAsync(deckId, cardId);
+                await _repository.SaveChanges();
+                return Ok("Card added to deck");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // Export deck
         [HttpGet("{id}/export")]
         public async Task<IActionResult> ExportDeckAsync(int id)
         {
             // Fetch deck
-            var deck = await _repository.Get(id);
+            var deck = await _repository.GetDeckAsync(id);
             if (deck == null)
             {
                 return NotFound($"Deck with ID {id} not found.");
