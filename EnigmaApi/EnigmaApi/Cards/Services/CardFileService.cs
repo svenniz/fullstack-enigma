@@ -12,6 +12,12 @@ namespace EnigmaApi.Cards.Services
             _scryfallCardService = scryfallCardService;
         }
 
+        /// <summary>
+        /// Returns a random selection of cards from a file
+        /// </summary>
+        /// <param name="filePath">a txt file</param>
+        /// <param name="numberOfCards">probably 15</param>
+        /// <returns></returns>
         public async Task<List<Card>> GetRandomCardsFromFileAsync(string filePath, int numberOfCards)
         {
             var cardNames = await ReadCardNamesFromFileAsync(filePath);
@@ -22,6 +28,11 @@ namespace EnigmaApi.Cards.Services
             return cards;
         }
 
+        /// <summary>
+        /// Read lines from txt file and return a list of card names
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         private async Task<List<string>> ReadCardNamesFromFileAsync(string filePath)
         {
             var cardNames = new List<string>();

@@ -16,5 +16,6 @@ namespace EnigmaApi.Boosters.Services
             _cardRepository = cardRepository;
             _boosterRepository = boosterRepository;
         }
+
     }
 }
