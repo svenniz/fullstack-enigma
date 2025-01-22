@@ -29,7 +29,7 @@ namespace EnigmaApi.Decks.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DeckDto>>> GetDecksAsync()
         {
-            var decks = await _repository.GetAllDeckDtos();
+            var decks = await _repository.GetAllDeckAsync();
             if (!decks.Any())
             {
                 return NotFound();

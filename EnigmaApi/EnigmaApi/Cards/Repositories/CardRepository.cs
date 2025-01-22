@@ -14,19 +14,17 @@ namespace EnigmaApi.Cards.Repositories
         {
             _context = context;
         }
-        public IQueryable<Card> GetCardWithImage()
-        {
-            return _context.Cards
-                .Include(c => c.Images);
-        }
+
         public async Task<Card?> GetCardAsync(int id)
         {
-            return await GetCardWithImage()
+            return await _context.Cards
+                .Include(c => c.Images)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<IEnumerable<Card>> GetAllCardsAsync()
         {
-            return await GetCardWithImage().ToListAsync();
+            return await _context.Cards
+                .Include(c => c.Images).ToListAsync();
         }
     }
 }

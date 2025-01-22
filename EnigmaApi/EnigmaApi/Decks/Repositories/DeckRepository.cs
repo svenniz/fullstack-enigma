@@ -17,20 +17,17 @@ namespace EnigmaApi.Decks.Repositories
             _mapper = mapper;
         }
 
-        public IQueryable<Deck> GetDeckWithCardsAsync()
+        public async Task<IEnumerable<Deck>> GetAllDeckAsync()
         {
-            return _context.Decks
+            return await _context.Decks
                 .Include(d => d.DeckCards)
-                .ThenInclude(dc => dc.Card);
-        }
-
-        public async Task<IEnumerable<Deck>> GetAllDeckDtos()
-        {
-            return await GetDeckWithCardsAsync().ToListAsync();
+                .ThenInclude(dc => dc.Card).ToListAsync();
         }
         public async Task<Deck?> GetDeckAsync(int id)
         {
-            return await GetDeckWithCardsAsync()
+            return await _context.Decks
+                .Include(d => d.DeckCards)
+                .ThenInclude(dc => dc.Card)
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
     }
