@@ -1,5 +1,4 @@
 ﻿using EnigmaApi.Cards.Models;
-using EnigmaApi.Models;
 using EnigmaApi.Shared.Repositories;
 
 namespace EnigmaApi.Cards.Repositories

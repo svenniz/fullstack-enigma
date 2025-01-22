@@ -1,5 +1,4 @@
 ﻿using EnigmaApi.Images.Dtos;
-using EnigmaApi.Models;
 
 namespace EnigmaApi.Cards.Dtos
 {

@@ -19,11 +19,7 @@ namespace EnigmaApi.Boosters.Services
 
         public async Task<Booster> CreateBoosterAsync()
         {
-            var booster = new Booster();
-            var cards = await _cardRepository.GetAllCardsAsync();
-            booster.Cards = cards.ToList();
-            await _boosterRepository.AddAsync(booster);
-            return booster;
+            throw new NotImplementedException();
         }
     }
 }
