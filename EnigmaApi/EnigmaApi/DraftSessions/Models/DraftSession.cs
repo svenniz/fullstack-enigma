@@ -1,6 +1,6 @@
 ﻿using EnigmaApi.Boosters.Models;
 
-namespace EnigmaApi.Models
+namespace EnigmaApi.DraftSessions.Models
 {
     public class DraftSession
     {

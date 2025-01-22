@@ -1,6 +1,6 @@
 ﻿using EnigmaApi.Boosters.Models;
 using EnigmaApi.Cards.Repositories;
-using EnigmaApi.Models;
+using EnigmaApi.DraftSessions.Models;
 using EnigmaApi.Shared.Repositories;
 
 namespace EnigmaApi.Boosters.Services

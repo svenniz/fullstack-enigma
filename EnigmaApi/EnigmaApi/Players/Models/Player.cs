@@ -1,4 +1,4 @@
-﻿namespace EnigmaApi.Models
+﻿namespace EnigmaApi.Players.Models
 {
     public class Player
     {
