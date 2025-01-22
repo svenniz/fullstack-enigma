@@ -17,7 +17,7 @@ namespace EnigmaApi.Decks.Repositories
             _mapper = mapper;
         }
 
-        public IQueryable<Deck> GetDeckWithCardAsync()
+        public IQueryable<Deck> GetDeckWithCardsAsync()
         {
             return _context.Decks
                 .Include(d => d.DeckCards)
@@ -26,7 +26,12 @@ namespace EnigmaApi.Decks.Repositories
 
         public async Task<IEnumerable<Deck>> GetAllDeckDtos()
         {
-            return await GetDeckWithCardAsync().ToListAsync();
+            return await GetDeckWithCardsAsync().ToListAsync();
+        }
+        public async Task<Deck?> GetDeckAsync(int id)
+        {
+            return await GetDeckWithCardsAsync()
+                .FirstOrDefaultAsync(d => d.Id == id);
         }
     }
 }

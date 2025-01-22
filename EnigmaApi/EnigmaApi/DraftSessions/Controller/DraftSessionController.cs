@@ -11,10 +11,36 @@ namespace EnigmaApi.DraftSessions.Controller
     {
         //private readonly IDraftSessionService _draftSessionService;
         private readonly IRepository<DraftSession> _draftSessionRepository;
+        private 
+
         public DraftSessionController(/*IDraftSessionService draftSessionService,*/ IRepository<DraftSession> draftSessionRepository)
         {
             //_draftSessionService = draftSessionService;
             _draftSessionRepository = draftSessionRepository;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DraftSessionDto>>> GetDraftSessionsAsync()
+        {
+            var draftSessions = await _draftSessionRepository.GetAllDraftSessionsAsync();
+            if (!draftSessions.Any())
+            {
+                return NotFound();
+            }
+            Console.WriteLine($"Number of DraftSessions found: {draftSessions.Count()}");
+            var draftSessionDtos = _mapper.Map<IEnumerable<DraftSessionDto>>(draftSessions);
+            return Ok(draftSessionDtos);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DraftSessionDto>> GetDraftSessionByIdAsync(int id)
+        {
+            var draftSession = await _draftSessionRepository.GetDraftSessionAsync(id);
+            if (draftSession == null)
+            {
+                return NotFound($"DraftSession with ID {id} not found.");
+            }
+            var draftSessionDto = _mapper.Map<DraftSessionDto>(draftSession);
+            return Ok(draftSessionDto);
         }
     }
 }

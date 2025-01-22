@@ -6,6 +6,7 @@ namespace EnigmaApi.Decks.Repositories
     public interface IDeckRepository : IRepository<Deck>
     {
         Task<IEnumerable<Deck>> GetAllDeckDtos();
-        IQueryable<Deck> GetDeckWithCardAsync();
+        Task<Deck?> GetDeckAsync(int id);
+        IQueryable<Deck> GetDeckWithCardsAsync();
     }
 }

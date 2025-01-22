@@ -2,8 +2,10 @@
 using EnigmaApi.Decks.Dtos;
 using EnigmaApi.Decks.Models;
 using EnigmaApi.Decks.Repositories;
+using EnigmaApi.Decks.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace EnigmaApi.Decks.Controller
 {
@@ -14,11 +16,13 @@ namespace EnigmaApi.Decks.Controller
     {
         private readonly IDeckRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IDeckService _deckService;
 
-        public DeckController(IDeckRepository repository, IMapper mapper)
+        public DeckController(IDeckRepository repository, IMapper mapper, IDeckService deckService)
         {
             _repository = repository;
             _mapper = mapper;
+            _deckService = deckService;
         }
 
         // Get all decks
@@ -58,6 +62,29 @@ namespace EnigmaApi.Decks.Controller
             await _repository.SaveChanges();
             var createdDeckDto = _mapper.Map<DeckDto>(deck);
             return CreatedAtAction(nameof(GetDeckByIdAsync), new { id = deck.Id }, createdDeckDto);
+        }
+
+        // Export deck
+        [HttpGet("{id}/export")]
+        public async Task<IActionResult> ExportDeckAsync(int id)
+        {
+            // Fetch deck
+            var deck = await _repository.Get(id);
+            if (deck == null)
+            {
+                return NotFound($"Deck with ID {id} not found.");
+            }
+
+            // Generate deck export
+            var deckExport = _deckService.GenerateDeckExport(deck);
+
+            // Create file
+            var fileName = $"{deck.Name}.txt";
+            return File(
+                Encoding.UTF8.GetBytes(deckExport),
+                "text/plain",
+                fileName
+                );
         }
 
         // Update deck
