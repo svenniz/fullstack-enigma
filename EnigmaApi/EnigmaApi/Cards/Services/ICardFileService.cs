@@ -5,5 +5,6 @@ namespace EnigmaApi.Cards.Services
     public interface ICardFileService
     {
         Task<List<Card>> GetRandomCardsFromFileAsync(string filePath, int numberOfCards);
+        Task<List<string>> ReadCardNamesFromFileAsync(string filePath);
     }
 }

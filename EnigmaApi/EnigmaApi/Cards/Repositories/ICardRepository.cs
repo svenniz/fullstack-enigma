@@ -7,5 +7,6 @@ namespace EnigmaApi.Cards.Repositories
     {
         Task<IEnumerable<Card>> GetAllCardsAsync();
         Task<Card?> GetCardAsync(int id);
+        Task<IEnumerable<Card>> GetCardsByNames(IEnumerable<string> names);
     }
 }

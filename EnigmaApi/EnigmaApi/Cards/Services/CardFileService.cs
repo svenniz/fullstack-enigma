@@ -33,7 +33,7 @@ namespace EnigmaApi.Cards.Services
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private async Task<List<string>> ReadCardNamesFromFileAsync(string filePath)
+        public async Task<List<string>> ReadCardNamesFromFileAsync(string filePath)
         {
             var cardNames = new List<string>();
 

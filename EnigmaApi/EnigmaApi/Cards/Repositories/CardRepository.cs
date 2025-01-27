@@ -26,5 +26,12 @@ namespace EnigmaApi.Cards.Repositories
             return await _context.Cards
                 .Include(c => c.Images).ToListAsync();
         }
+        public async Task<IEnumerable<Card>> GetCardsByNames(IEnumerable<string> names)
+        {
+            return await _context.Cards
+                .Include(c => c.Images)
+                .Where(c => names.Contains(c.Name))
+                .ToListAsync();
+        }
     }
 }

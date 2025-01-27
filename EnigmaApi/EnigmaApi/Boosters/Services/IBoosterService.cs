@@ -4,6 +4,6 @@ namespace EnigmaApi.Boosters.Services
 {
     public interface IBoosterService
     {
-        Task<Booster> CreateBoosterAsync();
+        Task<Booster> CreateBoosterAsync(string filePath = null);
     }
 }
