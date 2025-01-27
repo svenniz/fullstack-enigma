@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EnigmaApi.Boosters.Dtos;
+using EnigmaApi.Boosters.Models;
 using EnigmaApi.Cards.Dtos;
 using EnigmaApi.Cards.Models;
 using EnigmaApi.DeckCards.Models;
@@ -31,6 +33,11 @@ namespace EnigmaApi.Shared.Services
 
             // Map from Image to ImageDto and back
             CreateMap<Image, ImageDto>().ReverseMap();
+
+            // Map from Booster to BoosterDto and back
+            CreateMap<Booster, BoosterDto>()
+                .ForMember(dest => dest.Cards, opt =>
+                opt.MapFrom(src => src.Cards));
         }
     }
 }

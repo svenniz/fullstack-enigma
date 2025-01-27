@@ -4,6 +4,7 @@ using EnigmaApi.Cards.Services;
 using EnigmaApi.Data_Access;
 using EnigmaApi.Decks.Repositories;
 using EnigmaApi.Decks.Services;
+using EnigmaApi.DraftSessions.Models;
 using EnigmaApi.Shared.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -35,6 +36,8 @@ builder.Services.AddScoped<IScryfallCardService, ScryfallCardService>();
 builder.Services.AddScoped<ICardFileService, CardFileService>();
 builder.Services.AddScoped<IDeckService, DeckService>();
 builder.Services.AddScoped<IBoosterService, BoosterService>();
+
+builder.Services.AddScoped<DraftSession>();
 
 // Add CORS service
 builder.Services.AddCors(options =>
