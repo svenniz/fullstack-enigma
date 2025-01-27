@@ -77,6 +77,7 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<EnigmaDbContext>();
     var deckService = scope.ServiceProvider.GetRequiredService<IDeckService>();
+
     if (isInMemoryDatabase)
     {
         Console.WriteLine("Seeding Test Data now:");

@@ -17,5 +17,13 @@ namespace EnigmaApi.Boosters.Controller
             _boosterService = boosterService;
             _boosterRepository = boosterRepository;
         }
+
+        // POST: api/<BoosterController>
+        [HttpPost]
+        public async Task<ActionResult<Booster>> CreateBoosterAsync()
+        {
+            var booster = await _boosterService.CreateBoosterAsync();
+            return Ok(booster);
+        }
     }
 }
